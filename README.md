@@ -89,5 +89,8 @@ flowchart TD
 5. **Open the App:**
    Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
+
 ## Presentation
-*(To be added)* Link to the 5-minute Loom video explanation.
+- **Live Demo Link:**[https://tarsfullstackengineerinternshipcodi-ecru.vercel.app/]
+- **Video Explanation:** [Add your 5-minute Loom video link here](#)
+
