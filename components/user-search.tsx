@@ -17,6 +17,7 @@ export function UserSearch({ onSearch }: UserSearchProps) {
                 placeholder="Search users..."
                 className="w-full bg-gray-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                 onChange={(e) => onSearch(e.target.value)}
+                suppressHydrationWarning
             />
         </div>
     );

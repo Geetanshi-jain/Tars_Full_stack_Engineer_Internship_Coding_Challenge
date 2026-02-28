@@ -6,7 +6,8 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { UserSearch } from "@/components/user-search";
 import { ChatList } from "@/components/chat-list";
-import { Plus, ShieldAlert } from "lucide-react";
+import { CreateGroupModal } from "@/components/create-group-modal";
+import { Plus, ShieldAlert, Users } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
     const router = useRouter();
     const params = useParams();
     const [searchTerm, setSearchTerm] = useState("");
+    const [showGroupModal, setShowGroupModal] = useState(false);
 
     const allUsers = useQuery(api.users.getUsers);
     const startConversation = useMutation(api.conversations.startConversation);
@@ -22,7 +24,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
     const filteredUsers = allUsers?.filter(
         (u) =>
             u.clerkId !== user?.id &&
-            u.name.toLowerCase().includes(searchTerm.toLowerCase())
+            (u.name || "").toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleStartChat = async (userId: any) => {
@@ -35,11 +37,22 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
 
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
+            {showGroupModal && <CreateGroupModal onClose={() => setShowGroupModal(false)} />}
+
             {/* Sidebar - hidden on mobile when chat is open */}
             <div className={`w-full md:w-80 bg-white border-r flex flex-col ${isChatOpen ? "hidden md:flex" : "flex"}`}>
-                <div className="p-4 border-b flex justify-between items-center">
+                <div className="p-4 border-b flex justify-between items-center gap-2">
                     <h1 className="text-xl font-bold text-blue-600">Messages</h1>
-                    <UserButton afterSignOutUrl="/" />
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setShowGroupModal(true)}
+                            title="Create Group"
+                            className="p-1.5 rounded-full hover:bg-blue-50 text-blue-500 transition"
+                        >
+                            <Users className="w-4 h-4" />
+                        </button>
+                        <UserButton afterSignOutUrl="/" />
+                    </div>
                 </div>
 
                 {/* Auth Error Banner */}
@@ -48,7 +61,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
                         <ShieldAlert className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
                         <div className="text-[10px] text-red-600 leading-tight">
                             <strong>Convex Auth Failed</strong><br />
-                            Please check your Clerk JWT Template. "Audience" must be set to <strong>convex</strong>.
+                            Check Clerk JWT Template — "Audience" must be <strong>convex</strong>.
                         </div>
                     </div>
                 )}
@@ -62,7 +75,9 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
                         <h2 className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
                             Search Results
                         </h2>
-                        {filteredUsers?.length === 0 ? (
+                        {allUsers === undefined ? (
+                            <p className="px-4 py-2 text-sm text-gray-500">Loading users...</p>
+                        ) : filteredUsers?.length === 0 ? (
                             <p className="px-4 py-2 text-sm text-gray-500">No users found</p>
                         ) : (
                             filteredUsers?.map((u) => (
@@ -72,7 +87,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
                                     className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-50"
                                 >
                                     <img src={u.image} className="w-10 h-10 rounded-full" alt="" />
-                                    <span className="text-sm font-medium">{u.name}</span>
+                                    <span className="text-sm font-medium">{u.name || "Anonymous"}</span>
                                     <Plus className="ml-auto w-4 h-4 text-blue-500" />
                                 </div>
                             ))

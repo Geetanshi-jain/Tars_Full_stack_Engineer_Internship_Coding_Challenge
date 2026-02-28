@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { UserSync } from "@/components/user-sync";
+import { PresenceSync } from "@/components/presence-sync";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ConvexClientProvider>
           <UserSync />
+          <PresenceSync />
           {children}
         </ConvexClientProvider>
       </body>

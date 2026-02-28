@@ -1,41 +1,94 @@
-<<<<<<< HEAD
-# Tars_Full_stack_Engineer_Internship_Coding_Challenge
-A real-time live chat app built with Next.js, TypeScript, Convex, and Clerk. Users can sign up, find others, and message in real time with a clean, responsive UI.
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tars Full-stack Engineer Internship Coding Challenge
+
+A real-time live chat app built with Next.js, TypeScript, Convex, and Clerk. Users can sign up, find others, and message in real time with a clean, responsive UI.  
+
+
+## Tech Stack
+- **Framework:** [Next.js (App Router)](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Backend & Database:** [Convex](https://www.convex.dev/) (Realtime updates)
+- **Authentication:** [Clerk](https://clerk.com/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
+
+## High-Level Architecture Flow
+
+```mermaid
+flowchart TD
+    User([User]) -->|Interacts with UI| NextJS[Next.js App Router]
+    
+    subgraph Frontend Engine
+        NextJS
+    end
+    
+    subgraph Auth Provider
+        NextJS -->|Authenticate via| Clerk[Clerk]
+        Clerk -->|Returns Session| NextJS
+    end
+    
+    subgraph Realtime Backend & Database
+        NextJS <-->|Mutations / Queries| Convex[Convex]
+        Convex -->|WebSocket Updates| NextJS
+    end
+```
+
+## Features
+
+### Core Features
+- **Authentication:** Sign up, log in, log out using Clerk (Email & Social login supported). Discover other registered users stored in Convex.
+- **User List & Search:** Filter registered users by name in real-time. Start conversations instantly.
+- **One-on-One Direct Messages:** Private real-time messaging using Convex subscriptions. Sidebar previews the most recent messages.
+- **Message Timestamps:** Smart timestamps showing time for today, date+time for older, and year for past years.
+- **Empty States:** Helpful illustrations/messages for empty conversations, zero search results, etc.
+- **Responsive Layout:** Sidebar + Chat on desktop, Conversation list + Fullscreen chat on mobile.
+
+### Optional/Advanced Features
+- **Online/Offline Status:** Green indicator for active users, updated in real-time.
+- **Typing Indicator:** "User is typing..." animations that auto-hide.
+- **Unread Message Count:** Sidebar badges for unread messages.
+- **Smart Auto-Scroll:** Auto-scroll to new messages, with a "New messages" button if the user has scrolled up.
+-.
+- **Group Chat:** Multi-user groups with real-time sync.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js (v18+)
+- A [Clerk](https://clerk.com/) account for Authentication
+- A [Convex](https://www.convex.dev/) account for Backend & DB
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Setup Instructions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Configure Environment Variables:**
+   Create a `.env.local` file in the root directory and add your Clerk and Convex keys:
+   ```env
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_pub_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   CONVEX_DEPLOYMENT=your_convex_deployment # provided by `npx convex dev`
+   NEXT_PUBLIC_CONVEX_URL=your_convex_url
+   ```
 
-## Learn More
+3. **Run Convex Backend:**
+   In a separate terminal, start the Convex sync:
+   ```bash
+   npx convex dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Run Next.js Frontend:**
+   ```bash
+   npm run dev
+   ```
+    
+5. **Open the App:**
+   Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 27f0dfd (Initial commit from Create Next App)
+## Presentation
+- **Live Demo Link:** [Add your Vercel live demo link here](#)
+- **Video Explanation:** [Add your 5-minute Loom video link here](#)
