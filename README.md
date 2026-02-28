@@ -97,6 +97,6 @@ flowchart TD
 
 ## Presentation
 - **Live Demo Link:**[https://tarsfullstackengineerinternshipcodi-ecru.vercel.app/]
-- **Video Explanation:** [(https://www.loom.com/share/f4f39ee1c8164032a82572c0099df974)](#)
+- **Video Explanation:** [(https://www.loom.com/share/f4f39ee1c8164032a82572c0099df974)]
 
 >>>>>>> ff16dcebea5929de0fab55e92a3e59bc8cfc3b1e
