@@ -89,14 +89,13 @@ flowchart TD
 5. **Open the App:**
    Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-<<<<<<< HEAD
+
 ## Presentation
 - **Live Demo Link:** [Add your Vercel live demo link here](#)
 - **Video Explanation:** [Add your 5-minute Loom video link here](#)
-=======
+
 
 ## Presentation
 - **Live Demo Link:**[https://tarsfullstackengineerinternshipcodi-ecru.vercel.app/]
 - **Video Explanation:** [(https://www.loom.com/share/f4f39ee1c8164032a82572c0099df974)]
 
->>>>>>> ff16dcebea5929de0fab55e92a3e59bc8cfc3b1e
